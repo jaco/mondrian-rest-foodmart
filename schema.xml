@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Schema name="isystems">
+    <Dimension type="TimeDimension" name="Date">
+        <Hierarchy name="daily" hasAll="true" primaryKey="date_sk">
+            <Table name="dim_date" />
+            <Level name="Year" column="year" type="Integer" uniqueMembers="true" levelType="TimeYears"/>
+            <Level name="Quater" column="quater" type="Integer" levelType="TimeQuarters"/>
+            <Level name="Month" column="month" nameColumn="month_name_pl" type="Integer" levelType="TimeMonths"/>
+            <Level name="Day of month" column="day_of_month" type="Integer" levelType="TimeDays"/>
+        </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Date formats">
+        <Hierarchy name="YYYY-MM-DD" visible="true" hasAll="true" primaryKey="date_sk">
+            <Table name="dim_date" />
+            <Level name="YYYY-MM-DD" column="date_yyyy_mm_dd" type="String" />
+        </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Date: is weekend">
+        <Hierarchy hasAll="true" primaryKey="date_sk">
+            <Table name="dim_date" />
+            <Level name="Is weekend" type="String">
+                <KeyExpression><SQL dialect="generic"><![CDATA[CASE WHEN is_weekend is true THEN 'Yes' ELSE 'No' END]]></SQL></KeyExpression>
+            </Level>
+        </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Date: is holiday">
+        <Hierarchy hasAll="true" primaryKey="date_sk">
+            <Table name="dim_date" />
+            <Level name="Is holiday" type="String">
+                <KeyExpression><SQL dialect="generic"><![CDATA[CASE WHEN is_holiday = 'Y'  THEN 'Yes' ELSE 'No' END]]></SQL></KeyExpression>
+            </Level>
+        </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Date: weekday name">
+        <Hierarchy hasAll="true" primaryKey="date_sk">
+            <Table name="dim_date" />
+            <Level name="Weekday name" column="day_of_week" nameColumn="weekday_name_pl" type="String"/>
+        </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Time">
+        <Hierarchy name="hour" hasAll="true" primaryKey="time_sk">
+            <Table name="dim_time" />
+            <Level name="Hour" column="hour" type="String" />
+        </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Project Type">
+        <Hierarchy name="category" hasAll="true" primaryKey="category_sk">
+            <Table name="dim_category" />
+            <Level name="Project Type" column="name__pl" type="String" />
+        </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Ticket: Title">
+        <Hierarchy name="title" hasAll="true" primaryKey="ticket_sk">
+            <Table name="dim_ticket" />
+            <Level name="Ticket Title" column="title" type="String" />
+            <Level name="Ticket ID" column="id" type="Integer" />
+        </Hierarchy>
+    </Dimension>
+    <Dimension name="Ticket: Category">
+        <Hierarchy name="category" hasAll="true" primaryKey="ticket_sk">
+            <Table name="dim_ticket" />
+            <Level name="Ticket Category" column="ticket_category" type="String" />
+        </Hierarchy>
+    </Dimension>
+    <Dimension name="Ticket: Type">
+        <Hierarchy name="type" hasAll="true" primaryKey="ticket_sk">
+            <Table name="dim_ticket" />
+            <Level name="Ticket Type" column="ticket_type" type="String" />
+        </Hierarchy>
+    </Dimension>
+    <Dimension name="Ticket: Priority">
+        <Hierarchy name="priority" hasAll="true" primaryKey="ticket_sk">
+            <Table name="dim_ticket" />
+            <Level name="Ticket Priority" column="priority" type="String" />
+        </Hierarchy>
+    </Dimension>
+    <Dimension name="Ticket: is done">
+        <Hierarchy name="is_done" hasAll="true" primaryKey="ticket_sk">
+            <Table name="dim_ticket" />
+            <Level name="Ticket: Is done" type="String">
+                <KeyExpression><SQL dialect="generic"><![CDATA[CASE WHEN is_done is true THEN 'Yes' ELSE 'No' END]]></SQL></KeyExpression>
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension name="Ticket: is closed">
+        <Hierarchy name="is_closed" hasAll="true" primaryKey="ticket_sk">
+            <Table name="dim_ticket" />
+            <Level name="Ticket: Is closed" type="String">
+                <KeyExpression><SQL dialect="generic"><![CDATA[CASE WHEN is_closed is true THEN 'Yes' ELSE 'No' END]]></SQL></KeyExpression>
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension name="Ticket: is canceled">
+        <Hierarchy name="is_canceled" hasAll="true" primaryKey="ticket_sk">
+            <Table name="dim_ticket" />
+            <Level name="Ticket: Is canceled" type="String">
+                <KeyExpression><SQL dialect="generic"><![CDATA[CASE WHEN is_canceled is true THEN 'Yes' ELSE 'No' END]]></SQL></KeyExpression>
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension name="Ticket: is internal">
+        <Hierarchy name="is_internal" hasAll="true" primaryKey="ticket_sk">
+            <Table name="dim_ticket" />
+            <Level name="Ticket: Is internal" type="String">
+                <KeyExpression><SQL dialect="generic"><![CDATA[CASE WHEN is_internal is true THEN 'Yes' ELSE 'No' END]]></SQL></KeyExpression>
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension name="Ticket: State">
+        <Hierarchy name="state" hasAll="true" primaryKey="ticket_sk">
+            <Table name="dim_ticket" />
+            <Level name="Ticket State" column="state" type="String" />
+        </Hierarchy>
+    </Dimension>
+    <Dimension name="Ticket: Author">
+        <Hierarchy name="author" hasAll="true" primaryKey="ticket_sk">
+            <Table name="dim_ticket" />
+            <Level name="Ticket Author Type" column="author_type" type="String" />
+            <Level name="Ticket Author" column="author_name" type="String" />
+            <Level name="Ticket Author ID" column="author_id" type="Integer" />
+        </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Project: Name">
+        <Hierarchy name="name" hasAll="true" primaryKey="project_sk">
+            <Table name="dim_project" />
+            <Level name="Project Name" column="name" type="String" />
+            <Level name="Project ID" column="id" type="Integer" />
+        </Hierarchy>
+    </Dimension>
+    <Dimension name="Project: Site URL">
+        <Hierarchy name="site" hasAll="true" primaryKey="project_sk">
+            <Table name="dim_project" />
+            <Level name="Project Site URL" column="site_url" type="String" />
+        </Hierarchy>
+    </Dimension>
+    <Dimension name="Project: Customer">
+        <Hierarchy name="customer" hasAll="true" primaryKey="project_sk">
+            <Table name="dim_project" />
+            <Level name="Project Customer" column="customer_name" type="String" />
+            <Level name="Project Customer ID" column="customer_id" type="Integer" />
+        </Hierarchy>
+    </Dimension>
+    
+    <Dimension name="Employee: Name">
+        <Hierarchy name="name" hasAll="true" primaryKey="employee_sk">
+            <Table name="dim_employee" />
+            <Level name="Employee ID" column="id" type="Integer" />
+            <!--
+            <Level name="Employee First Name" column="first_name" type="String" />
+            <Level name="Employee Last Name" column="last_name" type="String" />
+            -->
+            <Level name="Employee Full Name" type="String">
+                <KeyExpression><SQL dialect="generic"><![CDATA[CONCAT_WS(' ',first_name,last_name)]]></SQL></KeyExpression>
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension name="Employee: E-mail">
+        <Hierarchy name="email" hasAll="true" primaryKey="employee_sk">
+            <Table name="dim_employee" />
+            <Level name="Employee E-mail" column="email" type="String" />
+        </Hierarchy>
+    </Dimension>
+    <Dimension name="Employee: Login">
+        <Hierarchy name="login" hasAll="true" primaryKey="employee_sk">
+            <Table name="dim_employee" />
+            <Level name="Employee Login" column="login" type="String" />
+        </Hierarchy>
+    </Dimension>
+    <Dimension name="Employee: Is active">
+        <Hierarchy name="active" hasAll="true" primaryKey="employee_sk">
+            <Table name="dim_employee" />
+            <Level name="Employee: Is active" type="String">
+                <KeyExpression><SQL dialect="generic"><![CDATA[CASE WHEN is_active is true THEN 'Yes' ELSE 'No' END]]></SQL></KeyExpression>
+            </Level>
+        </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Employee: Group name">
+        <Hierarchy name="name" hasAll="true" primaryKey="employee_group_sk">
+            <Table name="dim_employee_group" />
+            <Level name="Employee Group Name" column="name__pl" type="String" />
+        </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Absence: reason">
+        <Hierarchy name="Absence: reason" hasAll="true" primaryKey="absence_reason_sk">
+            <Table name="dim_absence_reason" />
+            <Level name="Absence: reason" column="description" type="String" />
+        </Hierarchy>
+    </Dimension>
+
+    <Cube name="Timelog i marża" cache="false">
+        <Table name="fact_time_log" />
+        <DimensionUsage source="Date" name="Date" foreignKey="date_sk" />
+        <DimensionUsage source="Date formats" name="Date formats" foreignKey="date_sk" />
+        <DimensionUsage source="Date: is weekend" name="Date: is weekend" foreignKey="date_sk" />
+        <DimensionUsage source="Date: is holiday" name="Date: is holiday" foreignKey="date_sk" />
+        <DimensionUsage source="Date: weekday name" name="Date: weekday name" foreignKey="date_sk" />
+        <DimensionUsage source="Time" name="Time" foreignKey="time_sk" />
+        <DimensionUsage source="Project Type" name="Project Type" foreignKey="category_sk" />
+
+        <DimensionUsage source="Ticket: Title" name="Ticket: Title" foreignKey="ticket_sk" />
+        <DimensionUsage source="Ticket: Category" name="Ticket: Category" foreignKey="ticket_sk" />
+        <DimensionUsage source="Ticket: Type" name="Ticket: Type" foreignKey="ticket_sk" />
+        <DimensionUsage source="Ticket: Author" name="Ticket: Author" foreignKey="ticket_sk" />
+        <DimensionUsage source="Ticket: Priority" name="Ticket: Priority" foreignKey="ticket_sk" />
+        <DimensionUsage source="Ticket: State" name="Ticket: State" foreignKey="ticket_sk" />
+        <DimensionUsage source="Ticket: is done" name="Ticket: is done" foreignKey="ticket_sk" />
+        <DimensionUsage source="Ticket: is closed" name="Ticket: is closed" foreignKey="ticket_sk" />
+        <DimensionUsage source="Ticket: is canceled" name="Ticket: is canceled" foreignKey="ticket_sk" />
+        <DimensionUsage source="Ticket: is internal" name="Ticket: is internal" foreignKey="ticket_sk" />
+
+        <DimensionUsage source="Project: Name" name="Project: Name" foreignKey="project_sk" />
+        <DimensionUsage source="Project: Site URL" name="Project: Site URL" foreignKey="project_sk" />
+        <DimensionUsage source="Project: Customer" name="Project: Customer" foreignKey="project_sk" />
+
+        <DimensionUsage source="Employee: Name" name="Employee: Name" foreignKey="employee_sk" />
+        <DimensionUsage source="Employee: E-mail" name="Employee: E-mail" foreignKey="employee_sk" />
+        <DimensionUsage source="Employee: Login" name="Employee: Login" foreignKey="employee_sk" />
+        <DimensionUsage source="Employee: Is active" name="Employee: Is active" foreignKey="employee_sk" />
+
+        <DimensionUsage source="Employee: Group name" name="Employee: Group name" foreignKey="employee_group_sk" />
+
+        <DimensionUsage source="Absence: reason" name="Absence: reason" foreignKey="absence_reason_sk" />
+
+        <Dimension caption="Absent" name="absent">
+            <Hierarchy hasAll="true">
+                <Level caption="Absent" name="absent" type="String">
+                    <KeyExpression><SQL dialect="generic"><![CDATA[CASE WHEN absent is true THEN 'Yes' ELSE 'No' END]]></SQL></KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+
+
+        <Measure caption="count" name="count" column="count" aggregator="sum" dataType="Integer" description="count" visible="false" />
+        <Measure caption="Ilość minut zalogowanych" name="minutes_logged" column="minutes_logged" dataType="Integer" aggregator="sum" description="Suma zalogowanych do ticketów minut" visible="false" />
+
+        <Measure caption="Wartość czasu zalogowanego [PLN]" name="time_value_pln" column="time_value_pln" dataType="Numeric" formatString="#,##0.00 PLN" aggregator="sum" description="Suma wartości wg hourly_rate" />
+
+        <Measure caption="Koszt czasu zalogowanego [PLN]" name="cost_pln" column="cost_pln" dataType="Numeric" formatString="#,##0.00 PLN" aggregator="sum" description="Koszt godzin wg user_hourly_cost, proporcjonalnie" />
+
+        <CalculatedMember caption="Marża [%]" name="margin_percent" description="(Wartość czasu zalogowanego - Koszt czasu zalogowanego) / Koszt czasu zalogowanego * 100%" dimension="Measures" formula="IIF( [Measures].[cost_pln] > 0, ([Measures].[time_value_pln] - [Measures].[cost_pln]) / [Measures].[cost_pln], NULL)" formatString="0.00%" />
+        <CalculatedMember caption="Marża [PLN]" name="margin_pln" description="Wartość czasu zalogowanego - Koszt czasu zalogowanego" dimension="Measures" formula="[Measures].[time_value_pln] - [Measures].[cost_pln]" formatString="#,##0.00 PLN" />
+
+        <CalculatedMember caption="Średnia wartość godziny [PLN]" name="avg_hour_value_pln" description="Wartość czasu zalogowanego / Ilość godzin zalogowanych" dimension="Measures" formula="IIF( [Measures].[hours_logged] > 0, [Measures].[time_value_pln] / [Measures].[hours_logged], NULL)" formatString="#,##0.00 PLN" />
+
+        <CalculatedMember caption="Ilość godzin zalogowanych [h]" name="hours_logged" description="Suma zalogowanych do ticketów godzin" dimension="Measures" formula="[Measures].[minutes_logged] / 60.0" formatString="#,##0.00" visible="true" />
+    </Cube>
+
+    <Cube name="Koszty pracy" cache="false">
+        <Table name="fact_work_costs" />
+        <DimensionUsage source="Date" name="Date" foreignKey="date_sk" />
+        <DimensionUsage source="Date formats" name="Date formats" foreignKey="date_sk" />
+        <DimensionUsage source="Date: is weekend" name="Date: is weekend" foreignKey="date_sk" />
+        <DimensionUsage source="Date: is holiday" name="Date: is holiday" foreignKey="date_sk" />
+        <DimensionUsage source="Date: weekday name" name="Date: weekday name" foreignKey="date_sk" />
+
+        <DimensionUsage source="Employee: Name" name="Employee: Name" foreignKey="employee_sk" />
+        <DimensionUsage source="Employee: E-mail" name="Employee: E-mail" foreignKey="employee_sk" />
+        <DimensionUsage source="Employee: Login" name="Employee: Login" foreignKey="employee_sk" />
+        <DimensionUsage source="Employee: Is active" name="Employee: Is active" foreignKey="employee_sk" />
+
+        <DimensionUsage source="Employee: Group name" name="Employee: Group name" foreignKey="employee_group_sk" />
+
+        <DimensionUsage source="Absence: reason" name="Absence: reason" foreignKey="absence_reason_sk" />
+
+        <Dimension caption="Absent" name="absent">
+            <Hierarchy hasAll="true">
+                <Level caption="Absent" name="absent" type="String">
+                    <KeyExpression><SQL dialect="generic"><![CDATA[CASE WHEN absent is true THEN 'Yes' ELSE 'No' END]]></SQL></KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+
+        <Measure caption="Ilość dni" name="count" column="count" aggregator="sum" dataType="Integer" description="count" visible="true" />
+        <Measure caption="Wymiar czasu pracy [h]" name="hours_per_day" column="hours_per_day" dataType="Numeric" formatString="#,##0.00" aggregator="sum" description="Ilość godzin pracy dziennie" />
+        <Measure caption="Koszt [PLN]" name="cost" column="cost" dataType="Numeric" formatString="#,##0.00 PLN" aggregator="sum" description="Koszt czasu pracy" />
+
+        <CalculatedMember caption="Śr. koszt h [PLN]" name="avg_hour_cost_pln" description="Koszt / Wymiar czasu pracy" dimension="Measures" formula="IIF( [Measures].[hours_per_day] > 0, [Measures].[cost] / [Measures].[hours_per_day], NULL )" formatString="#,##0.00 PLN" visible="true" />
+    </Cube>
+
+    
+</Schema>
